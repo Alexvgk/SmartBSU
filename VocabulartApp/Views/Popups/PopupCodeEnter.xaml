@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:controls="clr-namespace:SmartBSU.Views.Controls;assembly=SmartBSU"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    x:Class="SmartBSU.Views.Popups.PopupCodeEnter">
+    <!--You can set an animation in the xaml file or in the csharp code behind-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <!--You can use any elements here which are extended from Xamarin.Forms.View-->
+    <StackLayout VerticalOptions="Center"  Padding="50,20,50,20" HorizontalOptions="FillAndExpand" Spacing="7">
+        <Frame CornerRadius="20" Padding="0" BackgroundColor="{StaticResource PrimaryColor}" >
+            <StackLayout Padding="10">
+                <Label Text="CODE" TextColor="White" FontSize="25" HorizontalOptions="Center"></Label>
+                <Grid x:Name="EmailEnter" IsVisible="true">
+                    <Frame HasShadow="False"
+                       x:Name="EntryFrame"
+                       BackgroundColor="White"
+                       CornerRadius="15"
+                        Padding="5,0,5,0"
+                       Margin="35,0,35,0" />
+                    <controls:EntryOutline
+                       FontSize="15"
+                       HorizontalTextAlignment="Center"
+                       x:Name="CodeOutline" VerticalOptions="FillAndExpand"
+                       Margin="40,5,40,5"
+                       MaxLength="4"
+                       BackgroundColor="White"
+                       TextColor="{StaticResource PrimaryColor}"
+                       Text="{Binding EnteredCode}"/>
+                </Grid>
+                <Button x:Name="CheckButton" Text="OK"
+                        BackgroundColor="White" Margin="40,5,40,5"
+                        CornerRadius="15" TextColor="{StaticResource PrimaryColor}"
+                        Command="{Binding CheckCodeCommand}">
+                </Button>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</pages:PopupPage>

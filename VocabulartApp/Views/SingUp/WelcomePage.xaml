@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SmartBSU.Views.WelcomePage"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Content>
+        <StackLayout x:Name="InnerLayout" Orientation="Vertical" Spacing="50" Padding="20,60" HorizontalOptions="Center">
+            <StackLayout x:Name="LableLayout" Orientation="Horizontal">
+            </StackLayout>
+            <Image Source="Smart.png" Scale="0.89" VerticalOptions="Center" HorizontalOptions="Start" ></Image>
+            <Image Source="Welcome_page.png" Scale="1.05" VerticalOptions="Center" HorizontalOptions="Center" ></Image>
+            <Button x:Name="Start" VerticalOptions="Center" Text="Start" 
+                        BackgroundColor="{StaticResource LightButtonColor}"
+                Margin="20, 5, 20, 30"
+                Style="{StaticResource Base_Button}" Command="{Binding StartCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

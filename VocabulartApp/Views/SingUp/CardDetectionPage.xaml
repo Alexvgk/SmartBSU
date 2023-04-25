@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Shell.PresentationMode="ModalAnimated"
+             mc:Ignorable="d"
+             x:Class="SmartBSU.Views.CardDetectionPage"
+             BackgroundColor="White"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Content>
+        <StackLayout x:Name="InnerLayout" Orientation="Vertical" Spacing="30" Padding="0,70"
+                     HorizontalOptions="Center" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="True">
+            <Label  TextColor="{StaticResource PrimaryColor}" Text="Card Binding" FontSize="35" Margin="7,0,0,0" IsVisible="true" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+            <Image x:Name="cardBindingImage" Source="cardBinding.png" Scale="1.6" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,85,15,0" ></Image>
+            <Grid x:Name="EmailEnter" IsVisible="true">
+                <Frame HasShadow="False"
+                       x:Name="EntryFrame"
+                       BorderColor="{StaticResource LightPrimaryTextColor}"
+                       BackgroundColor="{StaticResource LightPrimaryTextColor}"
+                       Padding="0,0,0,0"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="0,0,0,0" />
+                <Label x:Name="PlaceHolderLabel"
+                       BackgroundColor="{StaticResource LightPrimaryTextColor}" HorizontalOptions="Start"
+                       TextColor="White"
+                       Text="Attach your student card to the back of your phone"
+                       Margin="17,0,17,0"
+                       FontSize="18"
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="Center" />
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,47 @@
+﻿
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartBSU.Views.AboutPage"
+             xmlns:vm="clr-namespace:SmartBSU.ViewModels"
+             Title="{Binding Title}">
+    
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                <Label Text="This is SmartFaculty" FontSize="Title"/>
+                <Label Text="Application SmartBSU developed during the course work." FontSize="16" Padding="0,0,0,0"/>
+                <Label FontSize="16" Padding="0,24,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Developer"/>
+                                <Span Text="https://vk.com/tcemi" FontAttributes="Bold"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Button x:Name="Developer"
+                        BackgroundColor="#11348D"
+                        Text="Developer"
+                        Command="{Binding OpenWebCommand}"
+                        Margin="0, 10, 0, 0"
+                        Style="{StaticResource Base_Button}"/>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

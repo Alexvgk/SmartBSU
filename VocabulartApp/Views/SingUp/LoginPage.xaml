@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Shell.PresentationMode="ModalAnimated"
+             xmlns:controls="clr-namespace:SmartBSU.Views.Controls;assembly=SmartBSU"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             mc:Ignorable="d"
+             x:Class="SmartBSU.Views.LoginPage"
+             BackgroundColor="White"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Content>
+        <StackLayout x:Name="InnerLayout" Orientation="Vertical" Spacing="13" Padding="20,100" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="True">
+            <Image x:Name="LoginImage" Source="logIn.png" Scale="1.5" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,5,0,0" ></Image>
+            <StackLayout x:Name="LableLayout" Orientation="Vertical">
+                <Grid x:Name="EmailEnter" IsVisible="true">
+                    <Frame HasShadow="False"
+                       x:Name="EntryFrame"
+                       BorderColor="{StaticResource LightPrimaryTextColor}"
+                       CornerRadius="15"
+                       Padding="5,0,5,0"
+                       Margin="0,0,0,0" />
+
+                    <Label x:Name="PlaceHolderLabel"
+                       BackgroundColor="White" HorizontalOptions="Start"
+                       TextColor="{StaticResource LightPrimaryTextColor}"
+                       Text="Email"
+                       Margin="18,0,0,0"
+                       VerticalOptions="Center" />
+
+                    <controls:EntryOutline
+                    HeightRequest="40"
+                    x:Name="EntryOutline" VerticalOptions="FillAndExpand"
+                    Text="{Binding Email,Mode=TwoWay}"
+                    Margin="10,0,0,0"
+                    Focused="TextBox_Focused"
+                    Unfocused="TextBox_Unfocused" />
+                </Grid>
+                <Label x:Name="IncorrectMail" Text="{Binding IncorrectMailMessege, Mode =TwoWay}"
+                       IsVisible="false" TextColor="{StaticResource FailColor}" FontSize="Small" Margin="7,0,0,0"/>
+                <Button x:Name="SendMail"
+                        BackgroundColor="#11348D" VerticalOptions="Center"
+                        Text="Send"
+                        Command="{Binding LoginCommand,Mode=TwoWay}"
+                        Clicked="SendMail_Clicked"
+                        Margin="40, 5, 30, 40"
+                        Style="{StaticResource Base_Button}" IsVisible ="true"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

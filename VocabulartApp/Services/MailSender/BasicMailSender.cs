@@ -19,22 +19,22 @@ namespace SmartBSU.Services.MailSender
                 mess.From = new MailAddress(HOME_MAIL);
                 mess.Subject = "Registration on App"; // тема
                 Random rnd = new Random();
-                //code = rnd.Next(1000,9999);
+                code = rnd.Next(1000,9999);
                 code = 1111;
                 mess.Body = "Your code for authorization\n" + code.ToString(); // текст сообщения
                 SmtpClient client = new SmtpClient();
                 client.Host = "smtp.mail.ru"; //smtp-сервер отправителя
                 client.Port = 25;
                 client.EnableSsl = true;
-                //client.Credentials = new NetworkCredential(HOME_MAIL.Split('@')[0], HOME_PASSWORD);
-                //client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                //client.Send(mess); // отправка пользователю
+                client.Credentials = new NetworkCredential(HOME_MAIL.Split('@')[0], HOME_PASSWORD);
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.Send(mess); // отправка пользователю
                 mess.To.Remove(mess.To[0]);              
                 mess.Dispose();
             }
-            catch (Exception e)
+            catch (SmtpException)
             {
-                throw new Exception("Mail.Send: " + e.Message);
+                throw new SmtpException("No Internen Connection");
             }
 
         }

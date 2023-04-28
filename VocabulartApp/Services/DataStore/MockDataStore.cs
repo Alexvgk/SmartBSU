@@ -34,15 +34,16 @@ namespace SmartBSU.Services.DataStore
 
         public async Task<bool> DeleteItemAsync(string id)
         {
-            var oldItem = items.Where((arg) => arg.Id == id).FirstOrDefault();
-            items.Remove(oldItem);
+           // var oldItem = items.Where((arg) => arg.Id == id).FirstOrDefault();
+            //items.Remove(oldItem);
 
             return await Task.FromResult(true);
         }
 
         public async Task<Person> GetItemAsync(string id)
         {
-            return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
+           // return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
+           return null;
         }
 
         public async Task<IEnumerable<Person>> GetItemsAsync(bool forceRefresh = false)

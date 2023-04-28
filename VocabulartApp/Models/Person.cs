@@ -7,7 +7,7 @@ namespace SmartBSU.Models
     [Serializable]
     public class Person : IEquatable<Person>
     {
-        public string Id { get; set; }
+        public long Id { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string Email { get; set;}
@@ -31,7 +31,7 @@ namespace SmartBSU.Models
         public override int GetHashCode()
         {
             int hashCode = 741780372;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Id);
+            hashCode = hashCode * -1521134295 + EqualityComparer<long>.Default.GetHashCode(Id);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FirstName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SecondName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Email);

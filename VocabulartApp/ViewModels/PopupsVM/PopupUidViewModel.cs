@@ -9,18 +9,18 @@ namespace SmartBSU.ViewModels.PopupsVM
 {
     public class PopupUidViewModel : BaseViewModel
     {
-        Models.Person person;
+        private string uid;
         public Command FinishCommand { get; }
-        public PopupUidViewModel(Models.Person person)
+        public PopupUidViewModel(string uid)
         {         
-            this.person = person;
+            this.uid = uid;
             FinishCommand = new Command(OnFinish);
         }
 
         private async void OnFinish()
         {
             await App.Current.MainPage.Navigation.PopPopupAsync();
-            App.Current.MainPage = new AppShell(person);
+            App.Current.MainPage = new AppShell(uid);
         }
     }
 }

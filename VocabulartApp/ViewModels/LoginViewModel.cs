@@ -8,16 +8,20 @@ using SmartBSU.Services.MailSender;
 using SmartBSU.Services.InternetConnection;
 using SmartBSU.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
+using SmartBSU.Services.Data;
+using MySqlConnector;
+using SmartBSU.MySQLConnector;
+using System.Net.Mail;
 
 namespace SmartBSU.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        private SmartBSU.Models.Person newPerson;
-        private string email;   
+        private Models.Person newPerson;
+        private string email;
         private string code;
         private string inccorectMailMessege = null;
-        public Command LoginCommand { get;}
+        public Command LoginCommand { get; }
 
         public string Email
         {
@@ -39,7 +43,7 @@ namespace SmartBSU.ViewModels
         public LoginViewModel()
         {
             newPerson = new SmartBSU.Models.Person();
-            LoginCommand = new Command(OnLoginClicked,ValidateSave);
+            LoginCommand = new Command(OnLoginClicked, ValidateSave);
             this.PropertyChanged +=
                 (_, __) => LoginCommand.ChangeCanExecute();
         }
@@ -56,34 +60,42 @@ namespace SmartBSU.ViewModels
             }
         }
 
-        private async  void OnLoginClicked()
+        private async void OnLoginClicked()
         {
             try
             {
-                 IInternetConnection connection = new CheckInternetConnection();
-                if (connection.IsConnected())
+                //IInternetConnection connection = new CheckInternetConnection();
+                var splitmail = email;
+                if (splitmail.Split('@')[1] == "bsu.by")
                 {
-                    var splitmail = email;
-                    if (splitmail.Split('@')[1] == "bsu.by")
-                    {
-                        IMailSender sender = new BasicMailSender();
-                        sender.SendMail(email,out double code_d);
-                        code = code_d.ToString();
-                        IncorrectMailMessege = null;
-                        newPerson.Email = email;
-                        await App.Current.MainPage.Navigation.PushPopupAsync(new PopupCodeEnter(code,newPerson));
-                    }
-                    else
-                        IncorrectMailMessege = "not BSU email";
+                    IMailSender sender = new BasicMailSender();
+                    sender.SendMail(email, out double code_d);
+                    code = code_d.ToString();
+                    MySQLConnector.MySQLConnector.SetEmailToDB(email, code);
+                    //await App.Current.MainPage.Navigation.PushPopupAsync(new PopupCodeEnter(email));
+                    IncorrectMailMessege = null;
+
+                    // using (UserContext uc = new UserContext()) {
+                    //   uc.Persons.Add(newPerson);
+                    //   uc.SaveChanges();
                 }
+                //await App.Current.MainPage.Navigation.PushPopupAsync(new PopupCodeEnter(code,newPerson));
                 else
-                    IncorrectMailMessege = "no Internet connection";
+                    IncorrectMailMessege = "not BSU email";
             }
             catch (IndexOutOfRangeException)
             {
-                IncorrectMailMessege =  "not email";
+                IncorrectMailMessege = "not email";
+            }
+            catch (MySqlConnector.MySqlException)
+            {
+                IncorrectMailMessege = "You're already registered";
+            }
+            catch (SmtpException e)
+            {
+                IncorrectMailMessege = e.Message;
             }
 
-        }
+        } 
     }
 }

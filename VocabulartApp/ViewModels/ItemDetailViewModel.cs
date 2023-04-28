@@ -50,7 +50,7 @@ namespace SmartBSU.ViewModels
             try
             {
                 var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
+                //Id = item.Id;
                 //Text = item.EngishWord;
                 //Description = item.Translation;
             }

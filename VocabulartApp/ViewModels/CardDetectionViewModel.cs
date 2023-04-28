@@ -19,8 +19,9 @@ namespace SmartBSU.ViewModels
 {
     public class CardDetectionViewModel : BaseViewModel
     {
-        private static Models.Person person;
-        private string uid;
+       // private static Models.Person person;
+        private static string Email;
+        private string  uid;
 
         public string Uid
         {
@@ -28,15 +29,18 @@ namespace SmartBSU.ViewModels
             set => SetProperty(ref uid, value);
         }
         public Command ShowUID { get; }
-        public CardDetectionViewModel(Models.Person newperson)
+        public CardDetectionViewModel(string email)
         {
-            person = newperson; 
+            Email = email; 
         }
         public static async Task DisplayAlertAsync(string msg)
         {
             if (App.Current.MainPage.Navigation.ModalStack.Last().GetType() == typeof(CardDetectionPage))
-                person.Uid = msg;
-                await Device.InvokeOnMainThreadAsync(async () => await App.Current.MainPage.Navigation.PushPopupAsync(new PopupUidShow(person)));
+            {
+                MySQLConnector.MySQLConnector.SetUIDToDB(msg, Email);
+                Email = null;
+            }
+                await Device.InvokeOnMainThreadAsync(async () => await App.Current.MainPage.Navigation.PushPopupAsync(new PopupUidShow(msg)));
         }
     }
 }

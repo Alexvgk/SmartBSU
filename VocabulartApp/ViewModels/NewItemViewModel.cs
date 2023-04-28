@@ -57,7 +57,7 @@ namespace SmartBSU.ViewModels
                 description = "Empty";
             Person newItem = new Person()
             {
-                Id = Guid.NewGuid().ToString(),
+               // Id = Guid.NewGuid().ToString(),
                 //EngishWord = Text,
                 //Translation = Description
             };

@@ -8,7 +8,7 @@ using Xamarin.Forms;
 namespace SmartBSU.ViewModels.PopupsVM
 {
     public class CodeViewModel : BaseViewModel {
-        private SmartBSU.Models.Person person;
+        private string email;
         private short occasions = 3;
         private string enteredCode;
         private string code;
@@ -20,20 +20,23 @@ namespace SmartBSU.ViewModels.PopupsVM
             set => enteredCode = value;
         }
 
-        public CodeViewModel(string code,SmartBSU.Models.Person person)
+        public CodeViewModel(string email)
         {
-            this.code = code;   
-            this.person = person;
             CheckCodeCommand = new Command(OnOK);
+            this.email = email;
         }
 
         private async void OnOK(object obj)
         {
+            if(code == null)
+            {
+                code = MySQLConnector.MySQLConnector.GetCodeFormDB(email);
+            }
             occasions--;
             if(occasions != 0 && enteredCode != null && enteredCode.CompareTo(code) == 0)
             {
                  await App.Current.MainPage.Navigation.PopPopupAsync();
-                 await App.Current.MainPage.Navigation.PushModalAsync(new CardDetectionPage(person));
+                 await App.Current.MainPage.Navigation.PushModalAsync(new CardDetectionPage(email));
             }
             else
             {

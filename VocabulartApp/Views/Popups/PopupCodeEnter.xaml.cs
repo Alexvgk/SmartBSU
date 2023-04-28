@@ -15,15 +15,10 @@ namespace SmartBSU.Views.Popups
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PopupCodeEnter : Rg.Plugins.Popup.Pages.PopupPage
     {
-        private string code;
-        public PopupCodeEnter()
+        public PopupCodeEnter(string email)
         {
             InitializeComponent();
-        }
-        public PopupCodeEnter(string code, SmartBSU.Models.Person person){
-            InitializeComponent();  
-            this.code = code;
-            BindingContext = new CodeViewModel(code , person);
+            BindingContext = new CodeViewModel(email);
         }
 
         protected override bool OnBackgroundClicked()

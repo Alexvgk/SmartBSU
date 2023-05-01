@@ -10,11 +10,9 @@ namespace SmartBSU
     public partial class AppShell : Xamarin.Forms.Shell
     {
         //private Models.Person person;
-        public AppShell(string uid)
-        {
-            //this.person = person;   
+        public AppShell(Models.User user)
+        {  
             InitializeComponent();
-            //Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
             Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
            // Routing.RegisterRoute(nameof(WelcomePage), typeof(WelcomePage));

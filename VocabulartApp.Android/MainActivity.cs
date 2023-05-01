@@ -7,6 +7,11 @@ using Android.OS;
 using Android.Nfc;
 using Android.Content;
 using SmartBSU.Droid.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Android.Content.Res;
+using SmartBSU.Services.Data;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace SmartBSU.Droid
 {
@@ -23,6 +28,12 @@ namespace SmartBSU.Droid
             Rg.Plugins.Popup.Popup.Init(this);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            //var serviceProvider = new ServiceCollection();
+           // .AddDbContext<MyDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MyConnection")))
+        //.AddTransient<MyService>()
+        //.BuildServiceProvider();
+
+          //  var myService = serviceProvider.GetService<MyService>();
             cardReader = new CardReader();
             EnableReaderMode();
             LoadApplication(new App());

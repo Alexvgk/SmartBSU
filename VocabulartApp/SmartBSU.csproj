@@ -33,6 +33,9 @@
     <Compile Update="Views\MainPages\SchedulePage.xaml.cs">
       <DependentUpon>SchedulePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\SingUp\SingupPage.xaml.cs">
+      <DependentUpon>SingupPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -45,7 +48,10 @@
     <EmbeddedResource Update="Styles\Theme.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ProfilePage.xaml">
+    <EmbeddedResource Update="Views\MainPages\ProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SingUp\CardDetectionLoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SingUp\CardDetectionPage.xaml">

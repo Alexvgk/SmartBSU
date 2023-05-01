@@ -10,7 +10,7 @@ namespace SmartBSU.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Person> DataStore => DependencyService.Get<IDataStore<Person>>();
+        public IDataStore<User> DataStore => DependencyService.Get<IDataStore<User>>();
 
         bool isBusy = false;
         public bool IsBusy

@@ -13,20 +13,20 @@ namespace SmartBSU.ViewModels
 {
     public class ScheduleViewModel : BaseViewModel
     {
-        private Person _selectedItem;
+        private User _selectedItem;
 
-        public ObservableCollection<Person> Items { get; }
+        public ObservableCollection<User> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Person> ItemTapped { get; }
+        public Command<User> ItemTapped { get; }
 
         public ScheduleViewModel()
         {
             Title = "Schedule";
-            Items = new ObservableCollection<Person>();
+            Items = new ObservableCollection<User>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Person>(OnItemSelected);
+            ItemTapped = new Command<User>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -62,7 +62,7 @@ namespace SmartBSU.ViewModels
             SelectedItem = null;
         }
 
-        public Person SelectedItem
+        public User SelectedItem
         {
             get => _selectedItem;
             set
@@ -77,7 +77,7 @@ namespace SmartBSU.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Person item)
+        async void OnItemSelected(User item)
         {
             if (item == null)
                 return;

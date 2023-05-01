@@ -55,7 +55,7 @@ namespace SmartBSU.ViewModels
         {
             if (String.IsNullOrWhiteSpace(description))
                 description = "Empty";
-            Person newItem = new Person()
+            User newItem = new User()
             {
                // Id = Guid.NewGuid().ToString(),
                 //EngishWord = Text,

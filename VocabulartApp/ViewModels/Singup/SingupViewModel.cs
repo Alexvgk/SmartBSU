@@ -12,12 +12,15 @@ using SmartBSU.Services.Data;
 using MySqlConnector;
 using SmartBSU.MySQLConnector;
 using System.Net.Mail;
+using SmartBSU.Models;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
-namespace SmartBSU.ViewModels
+namespace SmartBSU.ViewModels.Singup
 {
-    public class LoginViewModel : BaseViewModel
+    public class SingupViewModel : BaseViewModel
     {
-        private Models.Person newPerson;
+        private User newPerson;
         private string email;
         private string code;
         private string inccorectMailMessege = null;
@@ -40,19 +43,20 @@ namespace SmartBSU.ViewModels
             set => SetProperty(ref inccorectMailMessege, value);
         }
 
-        public LoginViewModel()
+        public SingupViewModel()
         {
-            newPerson = new SmartBSU.Models.Person();
+            newPerson = new User();
             LoginCommand = new Command(OnLoginClicked, ValidateSave);
-            this.PropertyChanged +=
+            PropertyChanged +=
                 (_, __) => LoginCommand.ChangeCanExecute();
         }
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(email);
+            return !string.IsNullOrWhiteSpace(email);
         }
-        private void CheckCodeState() {
+        private void CheckCodeState()
+        {
 
             if (code.CompareTo(code) == 0)
             {
@@ -71,13 +75,19 @@ namespace SmartBSU.ViewModels
                     IMailSender sender = new BasicMailSender();
                     sender.SendMail(email, out double code_d);
                     code = code_d.ToString();
-                    MySQLConnector.MySQLConnector.SetEmailToDB(email, code);
-                    //await App.Current.MainPage.Navigation.PushPopupAsync(new PopupCodeEnter(email));
+                    // var regCode = new RegCode { RegistCode = code };
+                    //MySQLConnector.MySQLConnector.SetEmailToDB(email, code);
+                    // await App.Current.MainPage.Navigation.PushPopupAsync(new PopupCodeEnter(email));
                     IncorrectMailMessege = null;
-
-                    // using (UserContext uc = new UserContext()) {
-                    //   uc.Persons.Add(newPerson);
-                    //   uc.SaveChanges();
+                    using (var dbContext = new MyDbContext())
+                    {
+                        var regCode = new RegCode { RegistCode = code };
+                        var newUser = new User { Email = email, RegCode = regCode };
+                        dbContext.RegistCodes.Add(regCode);
+                        dbContext.users.Add(newUser);
+                        dbContext.SaveChanges();
+                    }
+                    await Application.Current.MainPage.Navigation.PushPopupAsync(new PopupCodeEnter(email));
                 }
                 //await App.Current.MainPage.Navigation.PushPopupAsync(new PopupCodeEnter(code,newPerson));
                 else
@@ -87,15 +97,19 @@ namespace SmartBSU.ViewModels
             {
                 IncorrectMailMessege = "not email";
             }
-            catch (MySqlConnector.MySqlException)
+            catch (MySqlException)
             {
-                IncorrectMailMessege = "You're already registered";
+                IncorrectMailMessege = "Something wrong";
+            }
+            catch (DbUpdateException)
+            {
+                IncorrectMailMessege = "This email is used";
             }
             catch (SmtpException e)
             {
                 IncorrectMailMessege = e.Message;
             }
 
-        } 
+        }
     }
 }

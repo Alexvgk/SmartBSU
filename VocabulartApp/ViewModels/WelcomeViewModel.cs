@@ -4,21 +4,28 @@ using System.Collections.Generic;
 using System.Text;
 using SmartBSU.Views;
 using Xamarin.Forms;
+using SmartBSU.Views.SingUp;
 
 namespace SmartBSU.ViewModels
 {
     class WelcomeViewModel : BaseViewModel
     {
-        public Command StartCommand { get; }
+        public Command SingupCommand { get; }
+        public Command LoginCommand { get; }
         public WelcomeViewModel()
         {
-            StartCommand = new Command(OnStart);
-
+            SingupCommand = new Command(OnSingup);
+            LoginCommand = new Command(OnLogin);
         }
 
-        private void OnStart(object obj)
+        private void OnLogin(object obj)
         {
-            App.Current.MainPage.Navigation.PushModalAsync(new LoginPage());
+            App.Current.MainPage.Navigation.PushModalAsync(new CardDetectionLoginPage());
+        }
+
+        private void OnSingup(object obj)
+        {
+            App.Current.MainPage.Navigation.PushModalAsync(new SingupPage());
         }
     }
 }

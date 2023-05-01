@@ -8,7 +8,7 @@ namespace SmartBSU.Services.Reservation
 {
     public interface Ireservetion
     {
-        void WriteData(IDataStore<Person> dataStore);
-        void WriteItem(Person item);
+        void WriteData(IDataStore<User> dataStore);
+        void WriteItem(User item);
     }
 }

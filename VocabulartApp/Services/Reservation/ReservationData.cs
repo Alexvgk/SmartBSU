@@ -14,7 +14,7 @@ namespace SmartBSU.Services.Reservation
 {
     public class ReservationData : Ireservetion
     {
-        public void WriteData(IDataStore<Person> dataStore)
+        public void WriteData(IDataStore<User> dataStore)
         {
 
             string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -25,7 +25,7 @@ namespace SmartBSU.Services.Reservation
             File.WriteAllText(path, JsonConvert.SerializeObject(dataStore));
         }
 
-        public void WriteItem(Person item )
+        public void WriteItem(User item )
         {
             string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // Documents folder
             string path = "piropara.json";

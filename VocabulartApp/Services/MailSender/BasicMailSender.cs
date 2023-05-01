@@ -13,28 +13,35 @@ namespace SmartBSU.Services.MailSender
 
         public void SendMail(string mailURL, out double code)
         {
-            try {
-                MailMessage mess = new MailMessage();
-                mess.To.Add(mailURL); // адрес получателя
-                mess.From = new MailAddress(HOME_MAIL);
-                mess.Subject = "Registration on App"; // тема
-                Random rnd = new Random();
-                code = rnd.Next(1000,9999);
-                code = 1111;
-                mess.Body = "Your code for authorization\n" + code.ToString(); // текст сообщения
-                SmtpClient client = new SmtpClient();
-                client.Host = "smtp.mail.ru"; //smtp-сервер отправителя
-                client.Port = 25;
-                client.EnableSsl = true;
-                client.Credentials = new NetworkCredential(HOME_MAIL.Split('@')[0], HOME_PASSWORD);
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.Send(mess); // отправка пользователю
-                mess.To.Remove(mess.To[0]);              
-                mess.Dispose();
+            try
+            {
+                using (MailMessage mess = new MailMessage())
+                {
+                    mess.To.Add(mailURL); // адрес получателя
+                    mess.From = new MailAddress(HOME_MAIL);
+                    mess.Subject = "Registration on App"; // тема
+                    Random rnd = new Random();
+                    code = rnd.Next(1000, 9999);
+                    //code = 1111;
+                    mess.Body = "Your code for authorization\n" + code.ToString(); // текст сообщения
+
+                   // using (SmtpClient client = new SmtpClient())
+                   // {
+                       // client.Host = "smtp.mail.ru"; //smtp-сервер отправителя
+                     //   client.Port = 25;
+                      //  client.EnableSsl = true;
+                       // client.Credentials = new NetworkCredential(HOME_MAIL.Split('@')[0], HOME_PASSWORD);
+                        //client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                       // client.SendMailAsync(mess); // асинхронная отправка письма
+                   // }
+
+                    mess.To.Remove(mess.To[0]);
+                }
             }
             catch (SmtpException)
             {
-                throw new SmtpException("No Internen Connection");
+                throw new SmtpException("No Internet Connection");
             }
 
         }

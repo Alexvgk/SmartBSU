@@ -15,12 +15,12 @@ namespace SmartBSU.Services.Loader
             
         }
 
-        public void ReadStore(IDataStore<Person> dataStore)
+        public void ReadStore(IDataStore<User> dataStore)
         {
             //string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // Documents folder
             //string path = Path.Combine(documentsPath, "piropara.json");
             var path = Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + @"\" + "pirapare" + @".json";
-            dataStore = JsonConvert.DeserializeObject<IDataStore<Person>>(File.ReadAllText(path));
+            dataStore = JsonConvert.DeserializeObject<IDataStore<User>>(File.ReadAllText(path));
            // if (HistoryNote == null) HistoryNote = new History();
         }
     }

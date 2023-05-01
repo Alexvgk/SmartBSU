@@ -8,7 +8,7 @@ namespace SmartBSU.Services.Loader
 {
     public interface ILoader
     {
-        void ReadStore(IDataStore<Person> dataStore);
+        void ReadStore(IDataStore<User> dataStore);
         void ReadItem();
     }
 }

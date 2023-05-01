@@ -7,23 +7,23 @@ using SmartBSU.Models;
 namespace SmartBSU.Services.DataStore
 {
     [Serializable]
-    public class MockDataStore : IDataStore<Person>
+    public class MockDataStore : IDataStore<User>
     {
-        readonly List<Person> items;
+        readonly List<User> items;
 
         public MockDataStore()
         {
-            items = new List<Person>();
+            items = new List<User>();
         }
 
-        public async Task<bool> AddItemAsync(Person item)
+        public async Task<bool> AddItemAsync(User item)
         {
             items.Add(item);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(Person item)
+        public async Task<bool> UpdateItemAsync(User item)
         {
             var oldItem = items.Where((arg) => arg.Id == item.Id).FirstOrDefault();
             items.Remove(oldItem);
@@ -40,13 +40,13 @@ namespace SmartBSU.Services.DataStore
             return await Task.FromResult(true);
         }
 
-        public async Task<Person> GetItemAsync(string id)
+        public async Task<User> GetItemAsync(string id)
         {
            // return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
            return null;
         }
 
-        public async Task<IEnumerable<Person>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<User>> GetItemsAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(items);
         }

@@ -40,6 +40,13 @@
                         Command="{Binding OpenWebCommand}"
                         Margin="0, 10, 0, 0"
                         Style="{StaticResource Base_Button}"/>
+                <Button x:Name="Exit"
+                        Text="Exit"
+                        Command="{Binding ExitCommand}"
+                        Margin="0, 10, 0, 0"
+                        Style="{StaticResource Base_Button}"
+                        BackgroundColor="{StaticResource AccentColor}"
+                        VerticalOptions="End"/>
             </StackLayout>
         </ScrollView>
     </Grid>

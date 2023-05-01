@@ -10,7 +10,7 @@ namespace SmartBSU.Views
 {
     public partial class NewItemPage : ContentPage
     {
-        public Person Item { get; set; }
+        public User Item { get; set; }
 
         public NewItemPage()
         {

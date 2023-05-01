@@ -4,18 +4,23 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             BackgroundColor="White"
              x:Class="SmartBSU.Views.WelcomePage"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout x:Name="InnerLayout" Orientation="Vertical" Spacing="50" Padding="20,60" HorizontalOptions="Center">
+        <StackLayout x:Name="InnerLayout" Orientation="Vertical" Spacing="10" Padding="20,60" HorizontalOptions="Center">
             <StackLayout x:Name="LableLayout" Orientation="Horizontal">
             </StackLayout>
             <Image Source="Smart.png" Scale="0.89" VerticalOptions="Center" HorizontalOptions="Start" ></Image>
-            <Image Source="Welcome_page.png" Scale="1.05" VerticalOptions="Center" HorizontalOptions="Center" ></Image>
-            <Button x:Name="Start" VerticalOptions="Center" Text="Start" 
+            <Image Source="Welcome_page.png" Scale="1.1" VerticalOptions="Center" HorizontalOptions="Center" Margin="5,45,5,20" ></Image>
+            <Button x:Name="SingUp" VerticalOptions="Center" Text="SingUp" 
                         BackgroundColor="{StaticResource LightButtonColor}"
-                Margin="20, 5, 20, 30"
-                Style="{StaticResource Base_Button}" Command="{Binding StartCommand}"/>
+                Margin="20, 5, 20, 0"
+                Style="{StaticResource Base_Button}" Command="{Binding SingupCommand}"/>
+            <Button x:Name="LogIn" VerticalOptions="Center" Text="LogIn" 
+                        BackgroundColor="{StaticResource LightButtonColor}"
+                Margin="20, 0, 20, 5"
+                Style="{StaticResource Base_Button}" Command="{Binding LoginCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

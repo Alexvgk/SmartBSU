@@ -4,7 +4,7 @@ using Android.Widget;
 using Javax.Security.Auth.Login;
 using System;
 using System.Threading.Tasks;
-using SmartBSU.ViewModels;
+using SmartBSU.ViewModels.Singup;
 using SmartBSU.Views.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,13 +12,12 @@ using Xamarin.Forms.Xaml;
 namespace SmartBSU.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginPage : ContentPage
+    public partial class SingupPage : ContentPage
     {
-        public LoginPage()
+        public SingupPage()
         {
             InitializeComponent();
-            SmartBSU.Models.Person person = new SmartBSU.Models.Person();
-            BindingContext = new LoginViewModel();
+            BindingContext = new SingupViewModel();
         }
 
         async void TextBox_Focused(object sender, FocusEventArgs e)

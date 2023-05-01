@@ -7,7 +7,7 @@
              xmlns:controls="clr-namespace:SmartBSU.Views.Controls;assembly=SmartBSU"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              mc:Ignorable="d"
-             x:Class="SmartBSU.Views.LoginPage"
+             x:Class="SmartBSU.Views.SingupPage"
              BackgroundColor="White"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>

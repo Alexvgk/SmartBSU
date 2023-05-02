@@ -10,7 +10,6 @@ using SmartBSU.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
 using SmartBSU.Services.Data;
 using MySqlConnector;
-using SmartBSU.MySQLConnector;
 using System.Net.Mail;
 using SmartBSU.Models;
 using System.Linq;

@@ -28,7 +28,7 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
-                                <Span Text="Developer"/>
+                                <Span Text="Developer "/>
                                 <Span Text="https://vk.com/tcemi" FontAttributes="Bold"/>
                             </FormattedString.Spans>
                         </FormattedString>

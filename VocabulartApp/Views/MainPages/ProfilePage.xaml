@@ -2,17 +2,109 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SmartBSU.Views.ProfilePage"
-             xmlns:vm="clr-namespace:SmartBSU.ViewModels"
+             xmlns:vm="clr-namespace:SmartBSU.ViewModels" xmlns:controls="clr-namespace:SmartBSU.Views.Controls"
              Title="{Binding Title}">
     <ContentPage.BindingContext>
         <vm:ProfileViewModel />
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="This is profile Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="5,0,5,0">
+            <Grid x:Name="Email" IsVisible="true">
+                <Frame HasShadow="False"
+                       x:Name="EmailFrame"
+                       BorderColor="{StaticResource LightSecondaryTextColor}"
+                       CornerRadius="15"
+                       Padding="5,0,5,0"
+                       Margin="0,30,0,10" />
+
+                <Label x:Name="PlaceHolderEmail"
+                       BackgroundColor="White" HorizontalOptions="Start"
+                       TextColor="{StaticResource LightSecondaryTextColor}"
+                       Text="Email"
+                       Margin="18,5,0,30"
+                       VerticalOptions="Center" />
+
+                <Label
+                    HeightRequest="40"
+                    FontSize="16"
+                    x:Name="Emailline" VerticalOptions="FillAndExpand"
+                    Text="{Binding User.Email}"
+                    Margin="10,35,0,0"
+                    />
+            </Grid>
+            <Grid x:Name="UID" IsVisible="true">
+                <Frame HasShadow="False"
+                       x:Name="UIDFrame"
+                       BorderColor="{StaticResource LightSecondaryTextColor}"
+                       CornerRadius="15"
+                       Padding="5,0,5,0"
+                       Margin="0,30,0,10" />
+
+                <Label x:Name="PlaceHolderUID"
+                       BackgroundColor="White" HorizontalOptions="Start"
+                       TextColor="{StaticResource LightSecondaryTextColor}"
+                       Text="UID"
+                       Margin="18,5,0,30"
+                       VerticalOptions="Center" />
+
+                <Label
+                    HeightRequest="40"
+                    FontSize="16"
+                    x:Name="UIDline" VerticalOptions="FillAndExpand"
+                    Text="{Binding User.Uid}"
+                    Margin="10,35,0,0"
+                    />
+            </Grid>
+
+            <Grid x:Name="Name" IsVisible="true">
+                <Frame HasShadow="False"
+                       x:Name="NameFrame"
+                       BorderColor="{StaticResource LightSecondaryTextColor}"
+                       CornerRadius="15"
+                       Padding="5,0,5,0"
+                       Margin="0,30,0,10" />
+
+                <Label x:Name="PlaceHolderName"
+                       BackgroundColor="White" HorizontalOptions="Start"
+                       TextColor="{StaticResource LightPrimaryTextColor}"
+                       Text="Name"
+                       Margin="18,5,0,30"
+                       VerticalOptions="Center" />
+
+                <Label
+                    HeightRequest="40"
+                    FontSize="16"
+                    x:Name="Nameline" VerticalOptions="FillAndExpand"
+                    Text="{Binding User.FirstName}"
+                    Margin="10,35,0,0"
+                    />
+            </Grid>
+
+            <Grid x:Name="SecondName" IsVisible="true">
+                <Frame HasShadow="False"
+                       x:Name="SNameFrame"
+                       BorderColor="{StaticResource LightSecondaryTextColor}"
+                       CornerRadius="15"
+                       Padding="5,0,5,0"
+                       Margin="0,30,0,10" />
+
+                <Label x:Name="PlaceHolderSName"
+                       BackgroundColor="White" HorizontalOptions="Start"
+                       TextColor="{StaticResource LightPrimaryTextColor}"
+                       Text="Second Name"
+                       Margin="18,5,0,30"
+                       VerticalOptions="Center" />
+
+                <Label
+                    HeightRequest="40"
+                    FontSize="16"
+                    x:Name="SNameline" VerticalOptions="FillAndExpand"
+                    Text="{Binding User.SecondName}"
+                    Margin="10,35,0,0"
+                    />
+            </Grid>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

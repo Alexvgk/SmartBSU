@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartBSU.ViewModels" 
+             xmlns:controls="clr-namespace:SmartBSU.Views.Controls;assembly=SmartBSU"
+             x:Class="SmartBSU.Views.ProfileChangePage">
+    <ContentPage.BindingContext>
+        <vm:ProfileChangeViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content ItemsSource="{Binding User}">
+        <StackLayout Margin="5,50,5,0" Spacing="20">
+            <Grid x:Name="FirstName" IsVisible="true">
+                <Frame HasShadow="False"
+                       x:Name="FirstNameFrame"
+                       BorderColor="{StaticResource LightSecondaryTextColor}"
+                       CornerRadius="15"
+                       Padding="5,0,5,0"
+                       Margin="0,15,0,0" />
+
+                <Label x:Name="PlaceHolderFirstName"
+                       BackgroundColor="White" HorizontalOptions="Start"
+                       TextColor="{StaticResource LightPrimaryTextColor}"
+                       Text="Name"
+                       Margin="18,0,0,30"
+                       VerticalOptions="Center" />
+
+                <controls:EntryOutline
+                    HeightRequest="40"
+                    x:Name="EntryFirstName" VerticalOptions="FillAndExpand"
+                    Text="{Binding FirstName}"
+                    Margin="10,10,0,0" />
+            </Grid>
+            <Grid x:Name="SecondName" IsVisible="true">
+                <Frame HasShadow="False"
+                       x:Name="SecondNameFrame"
+                       BorderColor="{StaticResource LightSecondaryTextColor}"
+                       CornerRadius="15"
+                       Padding="5,0,5,0"
+                       Margin="0,15,0,0" />
+
+                <Label x:Name="PlaceHolderSecondName"
+                       BackgroundColor="White" HorizontalOptions="Start"
+                       TextColor="{StaticResource LightPrimaryTextColor}"
+                       Text="Second Name"
+                       Margin="18,0,0,30"
+                       VerticalOptions="Center" />
+
+                <controls:EntryOutline
+                    HeightRequest="40"
+                    x:Name="EntrySecondName" VerticalOptions="FillAndExpand"
+                    Text="{Binding SecondName}"
+                    Margin="10,10,0,0"/>
+            </Grid>
+            <Grid x:Name="CourseName" IsVisible="true">
+                <Frame HasShadow="False"
+                       x:Name="CourseFrame"
+                       BorderColor="{StaticResource LightSecondaryTextColor}"
+                       CornerRadius="15"
+                       Padding="5,0,5,0"
+                       Margin="0,15,0,0" />
+
+                <Label x:Name="PlaceHolderCourse"
+                       BackgroundColor="White" HorizontalOptions="Start"
+                       TextColor="{StaticResource LightPrimaryTextColor}"
+                       Text="Course"
+                       Margin="18,0,0,30"
+                       VerticalOptions="Center" />
+
+                <controls:EntryOutline
+                    HeightRequest="40"
+                    x:Name="EntryCourse" VerticalOptions="FillAndExpand"
+                    Text="{Binding Course}"
+                    Margin="10,10,0,0"/>
+            </Grid>
+            <Grid x:Name="GroupName" IsVisible="true">
+                <Frame HasShadow="False"
+                       x:Name="GroupFrame"
+                       BorderColor="{StaticResource LightSecondaryTextColor}"
+                       CornerRadius="15"
+                       Padding="5,0,5,0"
+                       Margin="0,15,0,0" />
+
+                <Label x:Name="GroupCourse"
+                       BackgroundColor="White" HorizontalOptions="Start"
+                       TextColor="{StaticResource LightPrimaryTextColor}"
+                       Text="Group"
+                       Margin="18,0,0,30"
+                       VerticalOptions="Center" />
+
+                <controls:EntryOutline
+                    HeightRequest="40"
+                    x:Name="EntryGroup" VerticalOptions="FillAndExpand"
+                    Text="{Binding Group}"
+                    Margin="10,10,0,0"/>
+            </Grid>
+            <Button x:Name="ChangeButton" Text="Change"
+                        BackgroundColor="{StaticResource PrimaryColor}" Margin="40,5,40,5"
+                        CornerRadius="20" TextColor="White"
+                        Command="{Binding ChangeCommand}">
+            </Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

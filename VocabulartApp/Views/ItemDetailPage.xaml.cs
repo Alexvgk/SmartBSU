@@ -6,10 +6,10 @@ namespace SmartBSU.Views
 {
     public partial class ItemDetailPage : ContentPage
     {
-        public ItemDetailPage()
+        public ItemDetailPage(Model.Schedule item)
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
+            BindingContext = new ItemDetailViewModel(item);
         }
     }
 }

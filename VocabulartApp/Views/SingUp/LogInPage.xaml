@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartBSU.Views.SingUp.LogInPage"
+             xmlns:controls="clr-namespace:SmartBSU.Views.Controls;assembly=SmartBSU"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             BackgroundColor="White">
+    <ContentPage.Content>
+        <StackLayout x:Name="InnerLayout" Orientation="Vertical" Spacing="13" Padding="20,100" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="True">
+            <Image x:Name="LoginImage" Source="icon_logIn.png" Scale="1.5" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,5,5,0" ></Image>
+            <StackLayout x:Name="LableLayout" Orientation="Vertical" Spacing="15">
+                <Grid x:Name="EmailEnter" IsVisible="true">
+                    <Frame HasShadow="False"
+                       x:Name="EmailFrame"
+                       BorderColor="{StaticResource LightPrimaryTextColor}"
+                       CornerRadius="15"
+                       Padding="5,0,5,0"
+                       Margin="0,0,0,0" />
+
+                    <Label x:Name="EmailLabel"
+                       BackgroundColor="White" HorizontalOptions="Start"
+                       TextColor="{StaticResource LightPrimaryTextColor}"
+                       Text="Email"
+                       Margin="18,0,0,0"
+                       VerticalOptions="Center" />
+
+                    <controls:EntryOutline
+                    HeightRequest="40"
+                    x:Name="EmailOutline" VerticalOptions="FillAndExpand"
+                    Text="{Binding Email,Mode=TwoWay}"
+                    Focused="EmailOutline_Focused"
+                    Unfocused="EmailOutline_Unfocused"
+                    Margin="10,0,0,0" />
+                </Grid>
+                <Grid x:Name="PasswordEnter" IsVisible="true">
+                    <Frame HasShadow="False"
+                       x:Name="PasswordFrame"
+                       BorderColor="{StaticResource LightPrimaryTextColor}"
+                       CornerRadius="15"
+                       Padding="5,0,5,0"
+                       Margin="0,0,0,0" />
+
+                    <Label x:Name="PasswordLabel"
+                       BackgroundColor="White" HorizontalOptions="Start"
+                       TextColor="{StaticResource LightPrimaryTextColor}"
+                       Text="Password"
+                       Margin="18,0,0,0"
+                       VerticalOptions="Center" />
+
+                    <controls:EntryOutline
+                    HeightRequest="40"
+                    x:Name="PasswordOutline" VerticalOptions="FillAndExpand"
+                    Text="{Binding Password,Mode=TwoWay}"
+                    Focused="PasswordOutline_Focused"
+                    Unfocused="PasswordOutline_Unfocused"
+                    Margin="10,0,0,0" 
+                    IsPassword="true"/>
+                </Grid>
+                <Label x:Name="IncorrectMail" Text="{Binding IncorrectMailMessege, Mode =TwoWay}"
+                       IsVisible="true" TextColor="{StaticResource FailColor}" FontSize="Small" Margin="7,0,0,0"/>
+                <Button x:Name="Enter"
+                        BackgroundColor="#11348D" VerticalOptions="Center"
+                        Text="Enter"
+                        Command="{Binding EnterCommand,Mode=TwoWay}"
+                        Margin="40, 5, 30, 40"
+                        Style="{StaticResource Base_Button}" IsVisible ="true"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

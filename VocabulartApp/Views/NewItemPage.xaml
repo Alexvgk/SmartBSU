@@ -3,19 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SmartBSU.Views.NewItemPage"
              Shell.PresentationMode="ModalAnimated"
-             Title="New Item"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             ios:Page.UseSafeArea="true">
+             Title="New Item">
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">
-            <Label Text="Text" FontSize="Medium" />
-            <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="Description" FontSize="Medium" />
-            <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+            <Label Text="Subject" FontSize="Medium" />
+            <Entry Text="{Binding Subject, Mode=TwoWay}" FontSize="Medium" />
+            <Label Text="Lecture" FontSize="Medium" />
+            <Editor Text="{Binding Lecture, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0"/>
+            <Label Text="Classroom" FontSize="Medium" />
+            <Editor Text="{Binding Classroom, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0"/>
+            <Label Text="Day" FontSize="Medium" />
+            <Picker SelectedItem="{Binding Day}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Monday</x:String>
+                        <x:String>Tuesday</x:String>
+                        <x:String>Wednesday</x:String>
+                        <x:String>Thursday</x:String>
+                        <x:String>Friday</x:String>
+                        <x:String>Saturday</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Label Text="Form" FontSize="Medium" />
+            <Picker SelectedItem="{Binding Form}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Lecture</x:String>
+                        <x:String>Laboratory</x:String>
+                        <x:String>Practice</x:String>
+                        <x:String>Seminar</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Label Text="Time" FontSize="Medium" />
+            <TimePicker Time="{Binding Time, Mode=TwoWay}" FontSize="Medium" Margin="0"/>
             <StackLayout Orientation="Horizontal">
-                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Translate" Command="{Binding TranslateCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand" CornerRadius="20" BackgroundColor="{StaticResource PrimaryColor}"  TextColor="White"></Button>
+                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand" CornerRadius="20" BackgroundColor="{StaticResource PrimaryColor}" TextColor="White"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

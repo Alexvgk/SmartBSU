@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using SmartBSU.Models;
+using Model;
 using SmartBSU.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

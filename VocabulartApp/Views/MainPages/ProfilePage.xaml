@@ -2,12 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SmartBSU.Views.ProfilePage"
-             xmlns:vm="clr-namespace:SmartBSU.ViewModels" xmlns:controls="clr-namespace:SmartBSU.Views.Controls"
+             xmlns:vm="clr-namespace:SmartBSU.ViewModels" 
+             xmlns:controls="clr-namespace:SmartBSU.Views.Controls"
              Title="{Binding Title}">
     <ContentPage.BindingContext>
         <vm:ProfileViewModel />
     </ContentPage.BindingContext>
-    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_changeprofile.png" Command="{Binding ChangeCommand}" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <StackLayout Margin="5,0,5,0">
             <Grid x:Name="Email" IsVisible="true">
@@ -33,30 +37,6 @@
                     Margin="10,35,0,0"
                     />
             </Grid>
-            <Grid x:Name="UID" IsVisible="true">
-                <Frame HasShadow="False"
-                       x:Name="UIDFrame"
-                       BorderColor="{StaticResource LightSecondaryTextColor}"
-                       CornerRadius="15"
-                       Padding="5,0,5,0"
-                       Margin="0,30,0,10" />
-
-                <Label x:Name="PlaceHolderUID"
-                       BackgroundColor="White" HorizontalOptions="Start"
-                       TextColor="{StaticResource LightSecondaryTextColor}"
-                       Text="UID"
-                       Margin="18,5,0,30"
-                       VerticalOptions="Center" />
-
-                <Label
-                    HeightRequest="40"
-                    FontSize="16"
-                    x:Name="UIDline" VerticalOptions="FillAndExpand"
-                    Text="{Binding User.Uid}"
-                    Margin="10,35,0,0"
-                    />
-            </Grid>
-
             <Grid x:Name="Name" IsVisible="true">
                 <Frame HasShadow="False"
                        x:Name="NameFrame"
@@ -80,7 +60,6 @@
                     Margin="10,35,0,0"
                     />
             </Grid>
-
             <Grid x:Name="SecondName" IsVisible="true">
                 <Frame HasShadow="False"
                        x:Name="SNameFrame"
@@ -104,7 +83,11 @@
                     Margin="10,35,0,0"
                     />
             </Grid>
-            
+            <Button x:Name="BindButton" Text="Bind Card"
+                        BackgroundColor="{StaticResource SuccessColor}" Margin="40,5,40,5"
+                        CornerRadius="20" TextColor="White"
+                        Command="{Binding BindingCommand}">
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

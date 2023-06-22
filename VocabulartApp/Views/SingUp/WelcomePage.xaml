@@ -8,19 +8,32 @@
              x:Class="SmartBSU.Views.WelcomePage"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout x:Name="InnerLayout" Orientation="Vertical" Spacing="10" Padding="20,60" HorizontalOptions="Center">
-            <StackLayout x:Name="LableLayout" Orientation="Horizontal">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackLayout x:Name="InnerLayout" Orientation="Vertical" Spacing="10" Padding="20,60" HorizontalOptions="Center">
+                <StackLayout x:Name="LableLayout" Orientation="Horizontal">
+                </StackLayout>
+                <Image Source="Smart.png" Scale="0.89" VerticalOptions="Center" HorizontalOptions="Start" ></Image>
+                <Image Source="Welcome_page.png" Scale="1.1" VerticalOptions="Center" HorizontalOptions="Center" Margin="5,45,5,20" ></Image>
+                <Button x:Name="SingUp" VerticalOptions="Center" Text="SingUp" 
+                            BackgroundColor="{StaticResource LightButtonColor}"
+                    Margin="20, 5, 20, 0"
+                    Style="{StaticResource Base_Button}" Command="{Binding SingupCommand}"/>
+                <Button x:Name="LogIn" VerticalOptions="Center" Text="LogIn" 
+                            BackgroundColor="{StaticResource LightButtonColor}"
+                    Margin="20, 0, 20, 5"
+                    Style="{StaticResource Base_Button}" Command="{Binding LoginCommand}"/>
             </StackLayout>
-            <Image Source="Smart.png" Scale="0.89" VerticalOptions="Center" HorizontalOptions="Start" ></Image>
-            <Image Source="Welcome_page.png" Scale="1.1" VerticalOptions="Center" HorizontalOptions="Center" Margin="5,45,5,20" ></Image>
-            <Button x:Name="SingUp" VerticalOptions="Center" Text="SingUp" 
-                        BackgroundColor="{StaticResource LightButtonColor}"
-                Margin="20, 5, 20, 0"
-                Style="{StaticResource Base_Button}" Command="{Binding SingupCommand}"/>
-            <Button x:Name="LogIn" VerticalOptions="Center" Text="LogIn" 
-                        BackgroundColor="{StaticResource LightButtonColor}"
-                Margin="20, 0, 20, 5"
-                Style="{StaticResource Base_Button}" Command="{Binding LoginCommand}"/>
-        </StackLayout>
+
+            <Label Grid.Row="1" Text="CourseWork, 2023" 
+                   FontSize="14" 
+                   TextColor="Gray" 
+                   HorizontalTextAlignment="Center"
+                   Margin="0,0,0,13"/>
+        </Grid>
     </ContentPage.Content>
-</ContentPage>
+    </ContentPage>

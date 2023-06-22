@@ -15,16 +15,11 @@ namespace SmartBSU.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CardDetectionPage : ContentPage
 	{
-        public CardDetectionPage (string email)
+        public CardDetectionPage ()
 		{
 			InitializeComponent ();
-			BindingContext = new CardDetectionViewModel(email);
+			BindingContext = new CardDetectionViewModel();
 		}
-
-        protected override bool OnBackButtonPressed()
-        {
-            return true;
-        }
     }
 
 }

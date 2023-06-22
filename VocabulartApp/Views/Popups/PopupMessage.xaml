@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-    x:Class="SmartBSU.Views.Popups.PopupUidShow">
+    x:Class="SmartBSU.Views.Popups.PopupMessage">
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation 
             PositionIn="Center"
@@ -19,13 +19,12 @@
     <StackLayout VerticalOptions="Center"  Padding="30,20,30,20" HorizontalOptions="FillAndExpand" Spacing="7">
         <Frame CornerRadius="20" Padding="0" BackgroundColor="{StaticResource PrimaryColor}" >
             <StackLayout Padding="10">
-                <Label Text="Success" TextColor="White" FontSize="25" HorizontalOptions="Center"></Label>
-                <Label Text=" Your  Id" FontSize="16" HorizontalOptions="Fill" TextColor="White"></Label>
-                <Label x:Name="ID" Text="{Binding ViewId, Mode =TwoWay}" HorizontalOptions="Center" TextColor="White"></Label>
-                <Button x:Name="FinshButton" Text="Finish"
+                <Label Text="{Binding Status, Mode=TwoWay}" TextColor="White" FontSize="25" HorizontalOptions="Center"></Label>
+                <Label x:Name="Messege" Text="{Binding Message, Mode =TwoWay}" FontSize="18" HorizontalOptions="Center" TextColor="White"></Label>
+                <Button x:Name="FinshButton" Text="OK"
                         BackgroundColor="White" Margin="40,5,40,5"
                         CornerRadius="15" TextColor="{StaticResource PrimaryColor}"
-                        Command="{Binding FinishCommand}">
+                        Command="{Binding OkCommand}">
                 </Button>
             </StackLayout>
         </Frame>

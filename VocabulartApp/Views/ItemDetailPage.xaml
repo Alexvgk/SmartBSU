@@ -2,14 +2,24 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SmartBSU.Views.ItemDetailPage"
-             Title="{Binding Title}">
+             Title="Detail">
 
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Text}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Description}" FontSize="Small"/>
-        <Button Text="Delete" Command="{Binding DeleteItemCommand}" HorizontalOptions="FillAndExpand"></Button>
+    <StackLayout Spacing="15" Padding="15">
+        <Label Text="Subject" FontSize="24" VerticalOptions="Center" TextColor="Black" />
+        <Label Text="{Binding Item.Name}" FontSize="20"/>
+        <Label Text="Lucturer" FontSize="24" VerticalOptions="Center" TextColor="Black" />
+        <Label Text="{Binding Item.Lecture}" FontSize="20"/>
+        <Label Text="Classroom" FontSize="24" VerticalOptions="Center" TextColor="Black" />
+        <Label Text="{Binding Item.Classroom}" FontSize="20"/>
+        <Label Text="Time" FontSize="24" VerticalOptions="Center" TextColor="Black" />
+        <Label Text="{Binding Item.Time}" FontSize="20"/>
+        <Button x:Name="Delete"
+                        Text="Delete"
+                        Command="{Binding DeleteItemCommand}"
+                        Margin="0, 0, 0, 0"
+                        Style="{StaticResource Base_Button}"
+                        BackgroundColor="{StaticResource AccentColor}"
+                        VerticalOptions="End"/>
 
     </StackLayout>
     

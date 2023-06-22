@@ -3,40 +3,62 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SmartBSU.Views.SchedulePage"
              Title="{Binding Title}"
-             xmlns:local="clr-namespace:SmartBSU.ViewModels"  
-             xmlns:model="clr-namespace:SmartBSU.Models"  
+             xmlns:local="clr-namespace:SmartBSU.ViewModels.Schedule"    
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+        <ToolbarItem IconImageSource="icon_add.png" Command="{Binding AddItemCommand}" />
+        <ToolbarItem IconImageSource="icon_refresh.png" Command="{Binding RefreshCommand}"/>
     </ContentPage.ToolbarItems>
-    <!--
-      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
-      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
-    -->
-    <RefreshView x:DataType="local:ScheduleViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <CollectionView x:Name="ItemsListView"
-                ItemsSource="{Binding Items}"
-                SelectionMode="None">
-            <CollectionView.ItemTemplate>
+
+    <AbsoluteLayout>
+        <CarouselView x:Name="ItemsCarouselView"
+                      ItemsSource="{Binding Items}"
+                      HorizontalScrollBarVisibility="Never"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            IndicatorView="indicatorview">
+            <CarouselView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10">
-                        <Label Text="" 
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
-                        <Label Text="" 
-                            LineBreakMode="NoWrap"
-                            Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                NumberOfTapsRequired="1">
-                            </TapGestureRecognizer>
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
+                    <AbsoluteLayout>
+                        <ListView x:Name="Schedules" ItemsSource="{Binding Schedules}"
+                                  HasUnevenRows="True">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout VerticalOptions="Center">
+                                            <Label Text="{Binding Name}" TextColor="Black"  FontSize="20" HorizontalOptions="Center"/>
+                                            <Label Text="{Binding Classroom,StringFormat='Classroom: {0}'}" FontSize="18" TextColor="Black" />
+                                            <Label Text="{Binding Time,StringFormat='Time: {0}'}" FontSize="18" TextColor="Black" />
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                    NumberOfTapsRequired="1"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:ScheduleViewModel}}, Path=ItemTapped}"		
+                                                    CommandParameter="{Binding .}">
+                                                </TapGestureRecognizer>
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <Label
+                                FontSize="Title"
+                                AbsoluteLayout.LayoutBounds="0.5,1.11,150,100"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding TitleDay}"
+                                TextColor="{StaticResource DarkPageBackgroundColor}" />
+                    </AbsoluteLayout>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </RefreshView>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+        <IndicatorView
+            x:Name="indicatorview"
+            AbsoluteLayout.LayoutBounds="0.5,1,100,100"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            IndicatorColor="LightGray"
+            IndicatorSize="8"
+            SelectedIndicatorColor="Black" />
+    </AbsoluteLayout>
 </ContentPage>

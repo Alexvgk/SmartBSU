@@ -15,11 +15,10 @@ namespace SmartBSU.Views.Popups
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PopupUidShow : Rg.Plugins.Popup.Pages.PopupPage
     {
-        public PopupUidShow(string uid)
+        public PopupUidShow(Guid uid)
         {
             InitializeComponent();
             BindingContext = new PopupUidViewModel(uid);
-            UID.Text = uid;
         }
 
         protected override bool OnBackgroundClicked()

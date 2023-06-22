@@ -4,11 +4,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SmartBSU.Models;
+using Model;
 using SmartBSU.ViewModels;
+using SmartBSU.ViewModels.Schedule;
 using SmartBSU.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Android.Content.ClipData;
 
 namespace SmartBSU.Views
 {
@@ -19,6 +21,7 @@ namespace SmartBSU.Views
         public SchedulePage()
         {
             InitializeComponent();
+            BindingContext = new DayScheduleItemModel();
             BindingContext = _viewModel = new ScheduleViewModel();
         }
 
@@ -27,5 +30,6 @@ namespace SmartBSU.Views
             base.OnAppearing();
             _viewModel.OnAppearing();
         }
+
     }
 }

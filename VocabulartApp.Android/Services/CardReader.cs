@@ -1,14 +1,7 @@
-﻿using Android.App;
-using Android.Content;
-using Android.Nfc.Tech;
+﻿
 using Android.Nfc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using SmartBSU.Views;
-using Android.OS;
-using SmartBSU.Services.Reservation;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using SmartBSU.ViewModels.Singup;
 using SmartBSU.ViewModels.Login;
@@ -27,8 +20,8 @@ namespace SmartBSU.Droid.Services
                 var tagIdString = ByteArrayToString(tagIdBytes);
                 if(App.Current.MainPage.Navigation.ModalStack.Last().GetType() == typeof(CardDetectionPage))
                     await CardDetectionViewModel.DisplayAlertAsync(tagIdString);
-                if (App.Current.MainPage.Navigation.ModalStack.Last().GetType() == typeof(CardDetectionLoginPage))
-                    await CardDetectionLogInVM.DisplayAlertAsync(tagIdString);
+                else if (App.Current.MainPage.Navigation.ModalStack.Last().GetType() == typeof(LogInPage))
+                    await LogInViewModel.DisplayAlertAsync(tagIdString);
                 else
                     return;
             }

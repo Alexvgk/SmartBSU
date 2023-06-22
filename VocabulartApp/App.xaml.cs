@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Configuration;
+using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SmartBSU.Models;
+using Model;
 using SmartBSU.Services.DataStore;
 using SmartBSU.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SmartBSU.Views.SingUp;
+using Model.Base;
 
 namespace SmartBSU
 {
@@ -14,7 +18,8 @@ namespace SmartBSU
         public App()
         {
             InitializeComponent();
-            DependencyService.Register<MockDataStore>();
+            //Configuration config = ConfigurationManager.OpenExeConfiguration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "app.config"));
+            DependencyService.Register<DBDataStore<BaseModel>>();
             MainPage = new WelcomePage();
         }
 
@@ -23,11 +28,12 @@ namespace SmartBSU
             if (Application.Current.Properties.ContainsKey("LoggedInUser"))
             {
                 string userJson = (string)Application.Current.Properties["LoggedInUser"];
-                Models.User loggedInUser = JsonConvert.DeserializeObject<Models.User>(userJson);
+                User loggedInUser = JsonConvert.DeserializeObject<User>(userJson);
                 MainPage = new AppShell(loggedInUser);
             }
             else
                 MainPage = new WelcomePage();
+                
         }
 
         protected override void OnSleep()

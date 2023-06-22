@@ -7,20 +7,21 @@
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.32">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.4" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +33,12 @@
   <ItemGroup>
     <Compile Update="Views\MainPages\SchedulePage.xaml.cs">
       <DependentUpon>SchedulePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\PopupMessage.xaml.cs">
+      <DependentUpon>PopupMessage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SingUp\LogInPage.xaml.cs">
+      <DependentUpon>LogInPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\SingUp\SingupPage.xaml.cs">
       <DependentUpon>SingupPage.xaml</DependentUpon>
@@ -51,6 +58,12 @@
     <EmbeddedResource Update="Views\MainPages\ProfilePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\Popups\PopupMessage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ProfileChangePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\SingUp\CardDetectionLoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -63,6 +76,12 @@
     <EmbeddedResource Update="Views\Popups\PopupUidShow.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\SingUp\LogInPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SingUp\PasswordPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\SingUp\WelcomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -72,5 +91,9 @@
     <None Update="Views\Popups\PopupUidShow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Data\Controller\" />
   </ItemGroup>
 </Project>

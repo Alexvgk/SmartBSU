@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Rg.Plugins.Popup.Extensions;
-using SmartBSU.Models;
+using Model;
 using SmartBSU.Services.Data;
 using SmartBSU.Views;
 using SmartBSU.Views.Popups;
@@ -34,10 +34,10 @@ namespace SmartBSU.ViewModels.Login
                 {
                     try
                     {
-                        user = dbContext.users.FirstOrDefault(u => u.Uid == msg);
+                     //   user = dbContext.users.FirstOrDefault(u => u.Uid == msg);
  
                     }
-                    catch (NullReferenceException e)
+                    catch (NullReferenceException)
                     {
 
                     }

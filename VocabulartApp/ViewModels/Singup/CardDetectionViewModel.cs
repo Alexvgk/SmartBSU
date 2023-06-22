@@ -7,7 +7,6 @@ using Xamarin.Forms;
 using Android.App;
 using Android.Content;
 using System.Threading.Tasks;
-using SmartBSU.Services.Reservation;
 using SmartBSU.Views;
 using static System.Net.Mime.MediaTypeNames;
 using System.Runtime.CompilerServices;
@@ -16,13 +15,16 @@ using SmartBSU.Views.Popups;
 using System.Linq;
 using SmartBSU.Services.Data;
 using Microsoft.EntityFrameworkCore;
+using Model;
+using SmartBSU.Services.DataStore;
+using SmartBSU.Views.SingUp;
 
 namespace SmartBSU.ViewModels.Singup
 {
     public class CardDetectionViewModel : BaseViewModel
     {
         // private static Models.Person person;
-        private static string Email;
+       // private static Guid GuId;
         private string uid;
 
         public string Uid
@@ -31,28 +33,36 @@ namespace SmartBSU.ViewModels.Singup
             set => SetProperty(ref uid, value);
         }
         public Command ShowUID { get; }
-        public CardDetectionViewModel(string email)
+        public CardDetectionViewModel()
         {
-            Email = email;
         }
         public static async Task DisplayAlertAsync(string msg)
         {
-            try {
+            try
+            {
                 if (Xamarin.Forms.Application.Current.MainPage.Navigation.ModalStack.Last().GetType() == typeof(CardDetectionPage))
                 {
-                    using var dbContext = new MyDbContext();
+                    DBDataStore<UID> dataStore = new DBDataStore<UID>();
+                    var uid = new UID() { Id = Guid.NewGuid(), Uid = msg, UserId = AppShell.User.Id };
+                    var response = await dataStore.AddItemAsync(uid, "api/Uid");
+                    if (response)
                     {
-                        var user = dbContext.users.Include(u => u.RegCode).FirstOrDefault(u => u.Email == Email);
-                        user.Uid = msg;
-                        await dbContext.SaveChangesAsync();
+                        await Device.InvokeOnMainThreadAsync(async ()
+                                 => await Xamarin.Forms.Application.Current.MainPage.Navigation
+                                 .PushPopupAsync(new PopupMessage("Card bind", "your UID\n"+msg)));
+                        await Shell.Current.GoToAsync("..");
                     }
-                    Email = null;
+                    else {
+                        await Device.InvokeOnMainThreadAsync(async ()
+                                => await Xamarin.Forms.Application.Current.MainPage.Navigation
+                                .PushPopupAsync(new PopupMessage("Fail", "this card is used")));
+                    }
                 }
             }
-            catch (DbUpdateException ex) {
+            catch (Exception)
+            {
                 msg = "This card is used";
             }
-            await Device.InvokeOnMainThreadAsync(async () => await Xamarin.Forms.Application.Current.MainPage.Navigation.PushPopupAsync(new PopupUidShow(msg)));
         }
 
     }

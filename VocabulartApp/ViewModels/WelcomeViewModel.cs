@@ -20,7 +20,7 @@ namespace SmartBSU.ViewModels
 
         private void OnLogin(object obj)
         {
-            App.Current.MainPage.Navigation.PushModalAsync(new CardDetectionLoginPage());
+            App.Current.MainPage.Navigation.PushModalAsync(new LogInPage());
         }
 
         private void OnSingup(object obj)

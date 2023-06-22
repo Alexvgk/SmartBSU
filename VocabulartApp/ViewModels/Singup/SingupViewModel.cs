@@ -11,15 +11,18 @@ using Rg.Plugins.Popup.Extensions;
 using SmartBSU.Services.Data;
 using MySqlConnector;
 using System.Net.Mail;
-using SmartBSU.Models;
+using Model;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http;
+using Newtonsoft.Json;
+using SmartBSU.Services.DataStore;
+using static Android.Telephony.CarrierConfigManager;
 
 namespace SmartBSU.ViewModels.Singup
 {
     public class SingupViewModel : BaseViewModel
     {
-        private User newPerson;
         private string email;
         private string code;
         private string inccorectMailMessege = null;
@@ -44,7 +47,7 @@ namespace SmartBSU.ViewModels.Singup
 
         public SingupViewModel()
         {
-            newPerson = new User();
+            //newPerson = new User();
             LoginCommand = new Command(OnLoginClicked, ValidateSave);
             PropertyChanged +=
                 (_, __) => LoginCommand.ChangeCanExecute();
@@ -54,14 +57,7 @@ namespace SmartBSU.ViewModels.Singup
         {
             return !string.IsNullOrWhiteSpace(email);
         }
-        private void CheckCodeState()
-        {
 
-            if (code.CompareTo(code) == 0)
-            {
-                Shell.Current.GoToAsync(nameof(CardDetectionPage));
-            }
-        }
 
         private async void OnLoginClicked()
         {
@@ -74,19 +70,43 @@ namespace SmartBSU.ViewModels.Singup
                     IMailSender sender = new BasicMailSender();
                     sender.SendMail(email, out double code_d);
                     code = code_d.ToString();
-                    // var regCode = new RegCode { RegistCode = code };
-                    //MySQLConnector.MySQLConnector.SetEmailToDB(email, code);
-                    // await App.Current.MainPage.Navigation.PushPopupAsync(new PopupCodeEnter(email));
                     IncorrectMailMessege = null;
-                    using (var dbContext = new MyDbContext())
+                    var regCode = new RegCode { Id = Guid.NewGuid(), RegistCode = code };
+                    var newUser = new User { Id = Guid.NewGuid(), Email = email, RegCode = regCode};
+                    //regCode.User = newUser;
+                    DBDataStore<User> dataStore = new DBDataStore<User>();
+                    if (await dataStore.AddItemAsync(newUser, "api/User"))
                     {
-                        var regCode = new RegCode { RegistCode = code };
-                        var newUser = new User { Email = email, RegCode = regCode };
-                        dbContext.RegistCodes.Add(regCode);
-                        dbContext.users.Add(newUser);
-                        dbContext.SaveChanges();
+                        await App.Current.MainPage.Navigation.PushPopupAsync(new PopupCodeEnter(regCode.Id));
                     }
-                    await Application.Current.MainPage.Navigation.PushPopupAsync(new PopupCodeEnter(email));
+                      //  var json_user = JsonConvert.SerializeObject(newUser);
+                       // var json_code = JsonConvert.SerializeObject(regCode);
+                       // http.BaseAddress = new Uri("https://smart.dev.rfct.info");
+                        //var relativeUri = "api/User";
+                        // Создаем контент запроса
+                        //var content_user = new StringContent(json_user, Encoding.UTF8, "application/json");
+                        // Отправка POST-запроса
+                        //var response = await http.PostAsync(relativeUri, content_user);
+                       // if (response.IsSuccessStatusCode)
+                       // {
+                            // Получение ответа в виде строки
+                        //    var responseContent = await response.Content.ReadAsStringAsync();
+
+                            // Десериализация ответа в объект пользователя
+                         //   var createdUser = JsonConvert.DeserializeObject<User>(responseContent);
+
+                          //  Console.WriteLine($"User {createdUser.Id} was created successfully.");
+                   // }
+
+                       // var regCode = new RegCode { Id = Guid.NewGuid(), RegistCode = code };
+                       // var newUser = new User { Id = Guid.NewGuid(), Email = email, RegCode = regCode };
+                        //http.PostAsync(newUser)
+                        //id = newUser.Id;
+                        //dbContext.RegistCodes.Add(regCode);
+                        //dbContext.users.Add(newUser);
+                        //dbContext.SaveChanges();
+                  //  }
+                 //   await Application.Current.MainPage.Navigation.PushPopupAsync(new PopupCodeEnter(id));
                 }
                 //await App.Current.MainPage.Navigation.PushPopupAsync(new PopupCodeEnter(code,newPerson));
                 else

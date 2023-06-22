@@ -4,18 +4,20 @@ using System.Collections.Generic;
 using System.Text;
 using SmartBSU.Views;
 using Xamarin.Forms;
-using SmartBSU.Models;
+using Model;
 using SmartBSU.Services.Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using SmartBSU.Services.DataStore;
+using Model.Base;
+using SmartBSU.Views.SingUp;
 
 namespace SmartBSU.ViewModels.PopupsVM
 {
     public class CodeViewModel : BaseViewModel {
-        private string email;
+        private Guid guid;
         private short occasions = 3;
         private string enteredCode;
-        private string code;
         public Command CheckCodeCommand { get; }
 
         public string EnteredCode
@@ -24,40 +26,30 @@ namespace SmartBSU.ViewModels.PopupsVM
             set => enteredCode = value;
         }
 
-        public CodeViewModel(string email)
+        public CodeViewModel(Guid guid)
         {
             CheckCodeCommand = new Command(OnOK);
-            this.email = email;
+            this.guid = guid;
         }
 
         private async void OnOK(object obj)
         {
-            if(code == null)
-            {
-                using var dbContext = new MyDbContext();
-                {
-                    var user = dbContext.users.Include(u => u.RegCode).FirstOrDefault(u => u.Email == email);
-                    code = user.RegCode.RegistCode;
-                }
-            }
+            DBDataStore<RegCode> dataStore = new DBDataStore<RegCode>();
+            var item = dataStore.GetItemAsync(guid, "api/RegCode");
+            //code = item.Result.RegistCode;
             occasions--;
-            if(occasions != 0 && enteredCode != null && enteredCode.CompareTo(code) == 0)
+            if(occasions != 0 && enteredCode != null && enteredCode.CompareTo(item.Result.RegistCode) == 0)
             {
                  await App.Current.MainPage.Navigation.PopPopupAsync();
-                 await App.Current.MainPage.Navigation.PushModalAsync(new CardDetectionPage(email));
+                 await App.Current.MainPage.Navigation.PushModalAsync(new PasswordPage(item.Result.UserId.Value));
             }
-            else
+            else if (occasions == 0)
             {
-                if(occasions == 0)
-                {
-                    using var dbContext = new MyDbContext();
-                    {
-                        var user = dbContext.users.Include(u => u.RegCode).FirstOrDefault(u => u.Email == email);
-                        dbContext.Remove(user);
-                        dbContext.SaveChanges();
-                    }
-                    await App.Current.MainPage.Navigation.PopPopupAsync();
-                }
+                DBDataStore<BaseModel> deleteStore = new DBDataStore<BaseModel>();
+                var responseCode = deleteStore.DeleteItemAsync(item.Result.Id, "api/RegCode");
+                var responseUser = deleteStore.DeleteItemAsync(item.Result.UserId.Value, "api/User");
+                await App.Current.MainPage.Navigation.PopPopupAsync();
+
             }
            
         }

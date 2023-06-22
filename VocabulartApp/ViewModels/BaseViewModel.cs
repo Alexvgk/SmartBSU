@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using SmartBSU.Models;
+using Model;
 using SmartBSU.Services.DataStore;
 using Xamarin.Forms;
 
@@ -10,7 +10,7 @@ namespace SmartBSU.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<User> DataStore => DependencyService.Get<IDataStore<User>>();
+       // public IDataStore<User> DataStore => DependencyService.Get<IDataStore<User>>();
 
         bool isBusy = false;
         public bool IsBusy

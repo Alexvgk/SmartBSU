@@ -1,47 +1,38 @@
-﻿using System;
+﻿using Rg.Plugins.Popup.Extensions;
+using SmartBSU.Services.DataStore;
+using SmartBSU.Views.Popups;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using SmartBSU.Models;
 using Xamarin.Forms;
 
 namespace SmartBSU.ViewModels
 {
-    [QueryProperty(nameof(ItemId), nameof(ItemId))]
+    [QueryProperty(nameof(Item), nameof(Item))]
     public class ItemDetailViewModel : BaseViewModel
     {
-        private string itemId;
-        private string text;
-        private string description;
-        public string Id { get; set; }
+        private Model.Schedule item;
+
         public Command DeleteItemCommand { get; }
 
-        public string Text
-        {
-            get => text;
-            set => SetProperty(ref text, value);
-        }
 
-        public string Description
-        {
-            get => description;
-            set => SetProperty(ref description, value);
-        }
 
-        public string ItemId
+
+        public Model.Schedule Item
         {
             get
             {
-                return itemId;
+                return item;
             }
             set
             {
-                itemId = value;
-                LoadItemId(value);
+                SetProperty(ref item, value);
             }
         }
 
-        public ItemDetailViewModel()
+        public ItemDetailViewModel(Model.Schedule item)
         {
+            this.item = item;
             DeleteItemCommand = new Command(DeleteItem);
         }
 
@@ -49,7 +40,7 @@ namespace SmartBSU.ViewModels
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
+               // var item = await DataStore.GetItemAsync(itemId);
                 //Id = item.Id;
                 //Text = item.EngishWord;
                 //Description = item.Translation;
@@ -62,10 +53,16 @@ namespace SmartBSU.ViewModels
 
         private async void DeleteItem()
         {
-            
-            await DataStore.DeleteItemAsync(itemId);
-            // This will pop the current page off the navigation stack
-            await Shell.Current.GoToAsync("..");
+            DBDataStore<Model.Schedule> dbstore = new DBDataStore<Model.Schedule>();
+            var response = dbstore.DeleteItemAsync(item.Id, "/api/Schedule");
+            if (response.Result)
+                await Shell.Current.GoToAsync("..");
+            else
+            {
+                await Device.InvokeOnMainThreadAsync(async ()
+                                => await Xamarin.Forms.Application.Current.MainPage.Navigation
+                                .PushPopupAsync(new PopupMessage("Fail", "something wrong")));
+            }
         }
     }
 }

@@ -1,49 +1,69 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using System.Windows.Input;
-using SmartBSU.Models;
-using SmartBSU.Services.Reservation;
+using System.Linq;
+using Java.Sql;
+using Model;
+using SmartBSU.Services.DataStore;
 using Xamarin.Forms;
 
 namespace SmartBSU.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
-        private string text;
-        private string description;
+        private string subject;
+        private string form;
+        private string lecture = null;
+        private string classroom = null;
+        private string day;
+        private TimeSpan time;
 
         public NewItemViewModel()
         {
-            SaveCommand = new Command(OnSave, ValidateSave);
+            SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
-            TranslateCommand = new Command(OnTranslate);
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
         }
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(text)
+            return !String.IsNullOrWhiteSpace(subject)
 ;
         }
 
-        public string Text
+        public string Subject
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => subject;
+            set => SetProperty(ref subject, value);
+        }
+        public string Form
+        {
+            get => form;
+            set => SetProperty(ref form, value);
+        }
+        public string Classroom
+        {
+            get => classroom;
+            set => SetProperty(ref classroom, value);
+        }
+        public TimeSpan Time
+        {
+            get => time;
+            set => SetProperty(ref time, value);
+        }
+        public string Day
+        {
+            get => day;
+            set => SetProperty(ref day, value);
         }
 
-        public string Description
+        public string Lecture
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => lecture;
+            set => SetProperty(ref lecture, value);
         }
 
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
-        public Command TranslateCommand { get; }
 
         private async void OnCancel()
         {
@@ -53,28 +73,38 @@ namespace SmartBSU.ViewModels
 
         private async void OnSave()
         {
-            if (String.IsNullOrWhiteSpace(description))
-                description = "Empty";
-            User newItem = new User()
+            if (String.IsNullOrWhiteSpace(subject) || String.IsNullOrWhiteSpace(day) || String.IsNullOrWhiteSpace(time.ToString()))
+                return;
+            //Model.DayTime dayTime = new DayTime() { Id = Guid.NewGuid(), Day = day, Time = time.ToString() };
+            DBDataStore<LessonForm> Lessonstore = new DBDataStore<LessonForm>();
+            var response =  Lessonstore.GetItemsAsync("/api/LessonForm");
+            DBDataStore<DayTime> dayTimeStore = new DBDataStore<DayTime>();
+            var DtResponse = dayTimeStore.GetItemsAsync("/api/DayTime");
+            Model.Schedule schedule = new Model.Schedule()
             {
-               // Id = Guid.NewGuid().ToString(),
-                //EngishWord = Text,
-                //Translation = Description
+                Id = Guid.NewGuid(),
+                Name = subject,
+                Lecture = lecture,
+                Classroom = Classroom,
+                Time = time.ToString(),
+                CGId = AppShell.User.IdCourseGroup,
+                DayId = DtResponse.Result.FirstOrDefault(d => d.Day == day).Id,
+                IdForm = response.Result.FirstOrDefault(w => w.Form == form).Id 
             };
+            DBDataStore<Model.Schedule> dBDataStore = new DBDataStore<Model.Schedule>();
+            var scheduleresponse = dBDataStore.AddItemAsync(schedule, "/api/Schedule");
+            if (scheduleresponse.IsCompletedSuccessfully)
+                await Shell.Current.GoToAsync("..");
+            else
+                await Shell.Current.GoToAsync("..");
 
-            await DataStore.AddItemAsync(newItem);
+            // await DataStore.AddItemAsync(newItem);
 
-             ReservationData reservationData = new ReservationData();
-            reservationData.WriteData(DataStore);
+            // ReservationData reservationData = new ReservationData();
+            //reservationData.WriteData(DataStore);
             //await Application.Current.SavePropertiesAsync();
 
             // This will pop the current page off the navigation stack
-            await Shell.Current.GoToAsync("..");
         }
-
-        private void OnTranslate() 
-        {
-            
-        } 
     }
 }
